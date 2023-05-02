@@ -5,10 +5,11 @@ Puzzle (Work In Progress)
 	CSS
 	JS
 ## Plan:
-- Fix movement option tiles
-* Size options
+- fix movement option tiles
+* size options
 + shuffle
-- Win!
-+ Diffrent images
+- win!
++ diffrent images
++ design(footer,header, option menu)
 * timer(?)
 * movements counter(?)
