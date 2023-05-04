@@ -3,77 +3,63 @@ const startBtn = document.querySelector(".startBtn");
 const welcome = document.querySelector(".welcome");
 const gameSpace = document.querySelector(".gameSpace");
 
-
-let gameState =[]
-// // ------------------------------------------
-// function shuffle(array) {
-//   let currentIndex = array.lentgh;
-
-//   // While there remain elements to shuffle.
-//   while (currentIndex != 0) {
-//     // Pick a remaining element.
-//     randomIndex = Math.floor(Math.random() * currentIndex);
-//     currentIndex--;
-
-//     // And swap it with the current element.
-//     [array[currentIndex], array[randomIndex]] = [
-//       array[randomIndex],
-//       array[currentIndex],
-//     ];
-//   }
-
-//   return array;
-// }
-
-// let newGame = gameState.flat(3);
-// let shuffledGame = [];
-// shuffledGame = shuffle(newGame);
-// console.log(shuffledGame);
-// // -----------------------------------------
+const gameState = [];
+let gameTile
+let setGame = []
 
 
 const creatTiles = (row, column) => {
-  for (let i = 0; i < row; ++i) {
-    for (let j = 0; j < column; ++j) {
-      let gameTiles = document.createElement("div");
-      gameTiles.classList.add("tile");
-      gameTiles.style['background-size'] = `${row * 100}px`
-      gameTiles.innerText = `${i.toString()}` + "-" + `${j.toString()}`;
-      gameBoard.appendChild(gameTiles)
+  for (let r = 0; r < row; ++r) {
+    for (let c = 0; c < column; ++c) {
+      gameTile = document.createElement("div");
+      gameTile.classList.add("tile");
+      gameTile.style["background-size"] = `${row * 100}px`;
+      gameTile.innerText = `${r.toString()}` + "-" + `${c.toString()}`;
 
-      gameTiles.style["background-position-y"] = `-${i * 100}px`;
-      gameTiles.style["background-position-x"] = `-${j * 100}px`;
+      gameTile.style.top = `${r * 100}px`;
+      gameTile.style.left = `${c * 100}px`;
 
-      gameBoard.appendChild(gameTiles);
-     
+      gameTile.style["background-position-y"] = `-${r * 100}px`;
+      gameTile.style["background-position-x"] = `-${c * 100}px`;
+      
+      let arr = Array.from(gameTile)
+      gameState.push(gameTile);
+      gameBoard.append(gameTile);
+      
+        
+ 
     }
   }
-   
-  gameBoard.style.width = `${row * 100}px`
-    gameBoard.style.height =`${column * 100}px`
-      
+  gameBoard.style.width = `${row * 100}px`;
+  gameBoard.style.height = `${column * 100}px`;
+ 
+
+};
+// -----------------START FROM SHUFFLED LOOK!!!!!!!!!!!!!!!!!!!!!!!!
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
 };
 
+const listToMatrix =(list, elementsPerSubArray) => {
+  let matrix = [], i, k;
 
+  for (i = 0, k = -1; i < list.length; i++) {
+      if (i % elementsPerSubArray === 0) {
+          k++;
+          matrix[k] = [];
+      }
 
+      matrix[k].push(list[i]);
+  }
 
+  return matrix;
+}
 
-
-// const render = (gameBoard, gameState) => {
-//   gameState.forEach((row, rowIndex) => {
-//     row.forEach((column, columnIndex) => {
-//       column.style.top = `${rowIndex * 100}px`;
-//       column.style.left = `${columnIndex * 100}px`;
-
-//       column.style["background-position-y"] = `-${rowIndex * 100}px`;
-//       column.style["background-position-x"] = `-${columnIndex * 100}px`;
-
-//       gameBoard.appendChild(column);
-//     });
-//   });
-// };
-
-// COMEBACK TO ME!!!!!!!!!!!!!!!!!!
 const moveElement = (element1, element2) => {
   const tempTop = element1.style.top;
   const tempLeft = element1.style.left;
@@ -85,48 +71,28 @@ const moveElement = (element1, element2) => {
   element2.style.left = tempLeft;
 };
 
+const startBoard = () =>{
+  // add board size options
+ 
+  creatTiles(5,5)
+  shuffleArray(gameState) 
+  setGame = listToMatrix(gameState,5)
+  console.log(setGame);
+}
+
 startBtn.addEventListener("click", () => {
   gameSpace.removeChild(welcome);
   gameBoard.style.visibility = "visible";
-gameState = [creatTiles(5,5)]
-  console.log(gameBoard);
+ startBoard()
 });
 
 
 gameBoard.addEventListener("click", (e) => {
-  const target = e.target;
-
-  let x, y;
- gameState.forEach((row, rowIndex) => {
-    row.forEach((column, columnIndex) => {
-      if (column === target) {
-        x = rowIndex;
-        y = columnIndex;
-      }
-    });
-  });
-
-  let emptyX, emptyY;
-
-  gameState.forEach((row, rowIndex) => {
-    row.forEach((column, columnIndex) => {
-      if (column.innerText === "") {
-        emptyX = rowIndex;
-        emptyY = columnIndex;
-      }
-    });
-  });
-
-  if (
-    (y === emptyY && (x + 1 === emptyX || x - 1 === emptyX)) ||
-    (x === emptyX && (y + 1 === emptyY || y - 1 === emptyY))
-  ) {
-    moveElement(gameState[x][y], gameState[emptyX][emptyY]);
-
-    const temp = gameState[x][y];
-    gameState[x][y] = gameState[emptyX][emptyY];
-    gameState[emptyX][emptyY] = temp;
-  } else {
+  let tile1 = e.target
+  let tile2 = gameTile
+  moveElement(tile1, tile2)
     console.log("Come on! You can not move me!");
+  // ----MAKE ONLY CLOSEST TILES MOVES ALOWED
+    
   }
-});
+);

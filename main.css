@@ -49,10 +49,14 @@ height: auto;
 #game-board {
     flex-wrap: wrap;
   visibility: hidden;
+  position: relative;
 }
 
 .tile {
-  display: inline-flex;
+  display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
   border: 1px solid #f0f0f0;
   height: 100px;
   width: 100px;
