@@ -88,9 +88,9 @@ startBtn.addEventListener("click", () => {
 
 
 gameBoard.addEventListener("click", (e) => {
-  let tile1 = e.target
-  let tile2 = gameTile
-  moveElement(tile1, tile2)
+  const target = e.target
+  let tile = gameTile
+  moveElement(target, tile)
     console.log("Come on! You can not move me!");
   // ----MAKE ONLY CLOSEST TILES MOVES ALOWED
     
