@@ -8,12 +8,12 @@ body {
   background-color: #202020;
   width: 100vw;
   height: 100vh;
-
   margin-top: 0;
 }
 
 body,
 .welcome,
+.tile,
 #game-board {
   display: flex;
   justify-content: center;
@@ -47,16 +47,13 @@ height: auto;
 }
 
 #game-board {
-    flex-wrap: wrap;
+    display: flex;
   visibility: hidden;
   position: relative;
 }
 
 .tile {
-  display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
+  position: absolute;
   border: 1px solid #f0f0f0;
   height: 100px;
   width: 100px;
