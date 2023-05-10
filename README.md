@@ -6,7 +6,7 @@ based on https://www.youtube.com/watch?v=dOxrZ3F_gu8&t=1298s
 	CSS
 	JS
 ## Plan:
-- fix movement option tiles
+- ~~fix movement option tiles ~~
 * size options
 + shuffle
 - win!
