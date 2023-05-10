@@ -7,7 +7,7 @@ based on https://www.youtube.com/watch?v=dOxrZ3F_gu8&t=1298s
 	JS
 ## Plan:
 - ~~fix movement option tiles~~
-* size options
+* ~~size options~~
 + shuffle
 - win!
 + diffrent images
