@@ -1,5 +1,6 @@
 # Sliding-Puzzle
-Puzzle (Work In Progress)
+Puzzle (Work In Progress )
+based on https://www.youtube.com/watch?v=dOxrZ3F_gu8&t=1298s
 ## Used
 	HTML
 	CSS
