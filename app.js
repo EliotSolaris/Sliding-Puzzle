@@ -2,6 +2,8 @@ const gameBoard = document.querySelector("#game-board");
 const startBtn = document.querySelector(".startBtn");
 const welcome = document.querySelector(".welcome");
 const gameSpace = document.querySelector(".gameSpace");
+const levelBtn = document.querySelector(".level");
+const goBackBtn = document.querySelector(".goBackBtn");
 
 const gameState = [];
 let gameTile;
@@ -67,19 +69,42 @@ const moveElement = (element1, element2) => {
   element2.style.left = tempLeft;
 };
 
-const startBoard = () => {
+const startBoard = (num) => {
   // add board size options
-
-  creatTiles(5, 5);
-  setGame = listToMatrix(gameState, 5);
+  creatTiles(num, num);
+  setGame = listToMatrix(gameState, num);
 };
 
-startBtn.addEventListener("click", () => {
+// startBtn.addEventListener("click", () => {
+//   gameSpace.removeChild(welcome);
+//   gameBoard.style.display = "flex";
+//   startBoard();
+// });
+
+levelBtn.addEventListener("click", (e) => {
+  let targetBtn = e.target;
+
   gameSpace.removeChild(welcome);
-  gameBoard.style.visibility = "visible";
-  startBoard();
+  gameBoard.style.display = "flex";
+
+  if (targetBtn.innerText === "Level 1") {
+    startBoard(3);
+  } else if (targetBtn.innerText === "Level 2") {
+    startBoard(4);
+  } else if (targetBtn.innerText === "Level 3") 
+  {
+    startBoard(5);
+  } else if (targetBtn.innerText === "Level 4") 
+  {
+    startBoard(6);
+  } 
+  levelBtn.style.display = "none";
+  goBackBtn.style.visibility = "visible";
 });
 
+goBackBtn.addEventListener('click', () =>{
+  location.reload();
+})
 // gameBoard.addEventListener("click", (e) => {
 //   const target = e.target;
 //   let tile = gameTile
@@ -126,7 +151,17 @@ gameBoard.addEventListener("click", (e) => {
 
   setGame.forEach((row, rowIndex) => {
     row.forEach((column, columnIndex) => {
-      if (column.innerText === `24`) {
+      if (column.innerText === "8") {
+        emptyX = rowIndex;
+        emptyY = columnIndex;
+      } else if (column.innerText === "15") {
+        emptyX = rowIndex;
+        emptyY = columnIndex;
+      } else if (column.innerText === "24") {
+        emptyX = rowIndex;
+        emptyY = columnIndex;
+      }
+      else if (column.innerText === "35") {
         emptyX = rowIndex;
         emptyY = columnIndex;
       }
