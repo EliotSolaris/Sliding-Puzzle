@@ -31,9 +31,9 @@ const creatTiles = (row, column) => {
   gameBoard.style.width = `${row * 100}px`;
   gameBoard.style.height = `${column * 100}px`;
 };
-// -----------------START FROM SHUFFLED LOOK!!!!!!!!!!!!!!!!!!!!!!!!
+// // -----------------START FROM SHUFFLED LOOK!!!!!!!!!!!!!!!!!!!!!!!!
 // const shuffleArray = (array) => {
-//   for (let i = array.length - 1; i > 0; i--) {
+//   for (let i = array.length - 1; i > 0; --i) {
 //     const j = Math.floor(Math.random() * (i + 1));
 //     const temp = array[i];
 //     array[i] = array[j];
@@ -59,14 +59,14 @@ const listToMatrix = (list, elementsPerSubArray) => {
 };
 
 const moveElement = (element1, element2) => {
-  const tempTop = element1.style.top;
-  const tempLeft = element1.style.left;
+  const top = element1.style.top;
+  const left = element1.style.left;
 
   element1.style.top = element2.style.top;
   element1.style.left = element2.style.left;
 
-  element2.style.top = tempTop;
-  element2.style.left = tempLeft;
+  element2.style.top = top;
+  element2.style.left = left;
 };
 
 const startBoard = (num) => {
@@ -74,12 +74,6 @@ const startBoard = (num) => {
   creatTiles(num, num);
   setGame = listToMatrix(gameState, num);
 };
-
-// startBtn.addEventListener("click", () => {
-//   gameSpace.removeChild(welcome);
-//   gameBoard.style.display = "flex";
-//   startBoard();
-// });
 
 levelBtn.addEventListener("click", (e) => {
   let targetBtn = e.target;
@@ -89,55 +83,30 @@ levelBtn.addEventListener("click", (e) => {
 
   if (targetBtn.innerText === "Level 1") {
     startBoard(3);
+    
   } else if (targetBtn.innerText === "Level 2") {
     startBoard(4);
-  } else if (targetBtn.innerText === "Level 3") 
-  {
+ 
+  } else if (targetBtn.innerText === "Level 3") {
     startBoard(5);
-  } else if (targetBtn.innerText === "Level 4") 
-  {
+  
+  } else if (targetBtn.innerText === "Level 4") {
     startBoard(6);
-  } 
+ 
+  }
   levelBtn.style.display = "none";
   goBackBtn.style.visibility = "visible";
 });
 
-goBackBtn.addEventListener('click', () =>{
+goBackBtn.addEventListener("click", () => {
   location.reload();
-})
-// gameBoard.addEventListener("click", (e) => {
-//   const target = e.target;
-//   let tile = gameTile
-//   let x = gameTile.style.top;
-//   let y = gameTile.style.left;
+});
 
-// console.log(target);
-
-//  gameState.forEach((row, rowIndex) => {
-//     setGame.forEach((column, columnIndex) => {
-//       if (column === target) {
-//       x = rowIndex;
-//       y = columnIndex;
-//     }
-//     });
-//   });
-
-// if (
-//   (column === column && (row + 1 === row || row - 1 === row)) ||
-//   (row === row && (column + 1 === column || column - 1 === column))
-// ) {
-//   moveElement(target, tile);
-//   const temp = setGame[row][column];
-//   setGame[row][column] = setGame[row][column];
-//   setGame[row][column] = temp;
-// } else {
-//   console.log("Come on! You can not move me!");
-// }
-// });
 gameBoard.addEventListener("click", (e) => {
   const target = e.target;
-
+  let lastText = ((parseInt(gameBoard.style.width) / 100) ** 2) - 1
   let x, y;
+
   setGame.forEach((row, rowIndex) => {
     row.forEach((column, columnIndex) => {
       if (column === target) {
@@ -146,29 +115,21 @@ gameBoard.addEventListener("click", (e) => {
       }
     });
   });
-  console.log(x, y);
+
+
+
   let emptyX, emptyY;
 
   setGame.forEach((row, rowIndex) => {
     row.forEach((column, columnIndex) => {
-      if (column.innerText === "8") {
-        emptyX = rowIndex;
-        emptyY = columnIndex;
-      } else if (column.innerText === "15") {
-        emptyX = rowIndex;
-        emptyY = columnIndex;
-      } else if (column.innerText === "24") {
-        emptyX = rowIndex;
-        emptyY = columnIndex;
-      }
-      else if (column.innerText === "35") {
+      if (column.innerText === `${lastText}`) {
         emptyX = rowIndex;
         emptyY = columnIndex;
       }
     });
   });
 
-  console.log(emptyX, emptyY);
+ 
 
   if (
     (y === emptyY && (x + 1 === emptyX || x - 1 === emptyX)) ||
@@ -180,6 +141,10 @@ gameBoard.addEventListener("click", (e) => {
     setGame[x][y] = setGame[emptyX][emptyY];
     setGame[emptyX][emptyY] = temp;
   } else {
-    console.log("Come on! You can not move me!");
+    gameBoard.classList.add('blink-bg')
+    setTimeout(() => {
+      gameBoard.classList.remove('blink-bg')
+    }, 1000);
+    
   }
 });

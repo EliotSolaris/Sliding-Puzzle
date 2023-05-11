@@ -1,6 +1,8 @@
 :root {
   --off-white: #f0f0f0;
   --off-black: #202020;
+  --violet: #b778ff;
+--orange: #f57322;
 }
 
 * {
@@ -26,7 +28,7 @@ header,
 .tile,
 .level,
 .gameSpace
-#game-board {
+{ 
   display: flex;
   justify-content: center;
   align-items: center;
@@ -87,10 +89,22 @@ footer{
   color: transparent;
   transition: top 0.2s linear, left 0.2s linear;
   background-image: url(image/Webtoon_St_Sobs.jpg);
-  z-index: 5;
 }
 
 .tile:last-of-type {
   background-image: none;
   border: none;
+}
+
+.blink-bg{
+  color: var(--off-black);
+  animation: blinkingBackground 2s infinite;
+}
+@keyframes blinkingBackground{
+  0%		{ background-color: var(--violet);}
+  25%		{ background-color: var(--orange)}
+  50%		{ background-color: var(--violet)}
+  75%		{ background-color:var(--orange)}
+  100%	{ background-color: var(--violet)}
+
 }
