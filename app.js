@@ -31,16 +31,8 @@ const creatTiles = (row, column) => {
   gameBoard.style.width = `${row * 100}px`;
   gameBoard.style.height = `${column * 100}px`;
 };
-// // -----------------START FROM SHUFFLED LOOK!!!!!!!!!!!!!!!!!!!!!!!!
-// const shuffleArray = (array) => {
-//   for (let i = array.length - 1; i > 0; --i) {
-//     const j = Math.floor(Math.random() * (i + 1));
-//     const temp = array[i];
-//     array[i] = array[j];
-//     array[j] = temp;
-//   }
-// };
 
+//MAKE MULTIDIMENSIONAL ARRAY
 const listToMatrix = (list, elementsPerSubArray) => {
   let matrix = [],
     i,
@@ -70,41 +62,49 @@ const moveElement = (element1, element2) => {
 };
 
 const startBoard = (num) => {
-  // add board size options
   creatTiles(num, num);
   setGame = listToMatrix(gameState, num);
 };
 
+// function shuffleArray (arr) {
+//   arr.reverse();
+// for (let i =0; i < arr.length; i++) {
+//     let j = Math.floor(Math.random() * arr.length);
+
+//     //swap
+//     let tmp = arr[i];
+//     arr[i] = arr[j];
+//     arr[j] = tmp;
+// }
+// }
+//  shuffleArray(gameState)
+
+// LEVEL OPTION
 levelBtn.addEventListener("click", (e) => {
   let targetBtn = e.target;
-
   gameSpace.removeChild(welcome);
   gameBoard.style.display = "flex";
 
   if (targetBtn.innerText === "Level 1") {
     startBoard(3);
-    
   } else if (targetBtn.innerText === "Level 2") {
     startBoard(4);
- 
   } else if (targetBtn.innerText === "Level 3") {
     startBoard(5);
-  
   } else if (targetBtn.innerText === "Level 4") {
     startBoard(6);
- 
   }
   levelBtn.style.display = "none";
   goBackBtn.style.visibility = "visible";
 });
-
+// REFRESH PAGE
 goBackBtn.addEventListener("click", () => {
   location.reload();
 });
 
 gameBoard.addEventListener("click", (e) => {
   const target = e.target;
-  let lastText = ((parseInt(gameBoard.style.width) / 100) ** 2) - 1
+  let lastText = (parseInt(gameBoard.style.width) / 100) ** 2 - 1;
   let x, y;
 
   setGame.forEach((row, rowIndex) => {
@@ -115,8 +115,6 @@ gameBoard.addEventListener("click", (e) => {
       }
     });
   });
-
-
 
   let emptyX, emptyY;
 
@@ -129,22 +127,18 @@ gameBoard.addEventListener("click", (e) => {
     });
   });
 
- 
-
   if (
     (y === emptyY && (x + 1 === emptyX || x - 1 === emptyX)) ||
     (x === emptyX && (y + 1 === emptyY || y - 1 === emptyY))
   ) {
     moveElement(setGame[x][y], setGame[emptyX][emptyY]);
-
     const temp = setGame[x][y];
     setGame[x][y] = setGame[emptyX][emptyY];
     setGame[emptyX][emptyY] = temp;
   } else {
-    gameBoard.classList.add('blink-bg')
+    gameBoard.classList.add("blink-bg");
     setTimeout(() => {
-      gameBoard.classList.remove('blink-bg')
+      gameBoard.classList.remove("blink-bg");
     }, 1000);
-    
   }
 });
