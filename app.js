@@ -5,9 +5,20 @@ const gameSpace = document.querySelector(".gameSpace");
 const levelBtn = document.querySelector(".level");
 const goBackBtn = document.querySelector(".goBackBtn");
 
-const gameState = [];
 let gameTile;
+const gameState = [];
 let setGame = [];
+
+// The Fisher-Yates algorithm
+
+const shuffleArray = (array) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+}
 
 const creatTiles = (row, column) => {
   let i = 0;
@@ -15,6 +26,7 @@ const creatTiles = (row, column) => {
     for (let c = 0; c < column; ++c) {
       gameTile = document.createElement("div");
       gameTile.classList.add("tile");
+
       gameTile.style["background-size"] = `${row * 100}px`;
       gameTile.innerText = i++;
 
@@ -31,6 +43,7 @@ const creatTiles = (row, column) => {
   gameBoard.style.width = `${row * 100}px`;
   gameBoard.style.height = `${column * 100}px`;
 };
+
 
 //MAKE MULTIDIMENSIONAL ARRAY
 const listToMatrix = (list, elementsPerSubArray) => {
@@ -61,23 +74,13 @@ const moveElement = (element1, element2) => {
   element2.style.left = left;
 };
 
+ 
 const startBoard = (num) => {
   creatTiles(num, num);
-  setGame = listToMatrix(gameState, num);
-};
-
-// function shuffleArray (arr) {
-//   arr.reverse();
-// for (let i =0; i < arr.length; i++) {
-//     let j = Math.floor(Math.random() * arr.length);
-
-//     //swap
-//     let tmp = arr[i];
-//     arr[i] = arr[j];
-//     arr[j] = tmp;
-// }
-// }
-//  shuffleArray(gameState)
+  shuffleArray(gameState)
+  console.log(gameState);
+ setGame = listToMatrix(gameState, num); 
+}
 
 // LEVEL OPTION
 levelBtn.addEventListener("click", (e) => {
@@ -96,6 +99,8 @@ levelBtn.addEventListener("click", (e) => {
   }
   levelBtn.style.display = "none";
   goBackBtn.style.visibility = "visible";
+
+
 });
 // REFRESH PAGE
 goBackBtn.addEventListener("click", () => {
