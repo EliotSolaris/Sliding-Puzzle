@@ -8,9 +8,9 @@ based on https://www.youtube.com/watch?v=dOxrZ3F_gu8&t=1298s
 ## Plan:
 - ~~fix movement option tiles~~
 * ~~size options~~
-+ shuffle
++ shuffle (I'm stuck with this)
 - win!
 + diffrent images
 + design(footer,header, option menu)
 * timer(?)
-* movements counter(?)
+* moves counter(?)
